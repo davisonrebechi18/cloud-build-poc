@@ -7,5 +7,5 @@ steps:
       - 'bq'
       - 'datasets'
       - 'create'
-      - '--location=US' # Substitua pela localização desejada
       - 'project-poc2025:dataset-cloudbuild' # Substitua pelo ID do projeto e nome do dataset
+      - 'US' # Substitua pela localização desejada
