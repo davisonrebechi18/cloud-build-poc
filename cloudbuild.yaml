@@ -13,5 +13,5 @@ steps:
       - 'query'
       - '--nouse_legacy_sql'
       - >
-        CREATE OR REPLACE TABLE `project-poc2025.datasetcloudbuild.dummy_table` AS
+        CREATE TABLE IF NOT EXISTS `project-poc2025.datasetcloudbuild.dummy_table` AS
         SELECT 1 AS id, "Alice" AS name, CURRENT_TIMESTAMP() AS created_at
