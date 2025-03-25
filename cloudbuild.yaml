@@ -1,14 +1,9 @@
 steps:
-  # Deploy Cloud Function
+  # Cria um dataset no BigQuery
   - name: 'google/cloud-sdk:latest'
     entrypoint: 'gcloud'
     args:
-      - 'functions'
-      - 'deploy'
-      - 'minha_funcao' # Nome da Cloud Function
-      - '--runtime=python39' # Ou outra runtime de sua preferencia
-      - '--trigger-http' # Tipo de gatilho
-      - '--allow-unauthenticated' # Remova essa flag em produção, caso precise de autenticação.
-      - '--timeout=120s'
-      - '--region=us-central1' # Região de implantação
-      - '--source=scripts/minha_funcao' # Caminho para o código da função
+      - 'bq'
+      - 'mk'
+      - '--location=US' # Substitua pela localização desejada
+      - 'project-poc2025:dataset-cloudbuild' # Substitua pelo ID do projeto e nome do dataset
