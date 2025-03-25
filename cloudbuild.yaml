@@ -1,11 +1,10 @@
 steps:
-  # Cria um dataset no BigQuery
+  # Cria um dataset no BigQuery usando o comando bq mk
   - name: 'google/cloud-sdk:slim'
-    entrypoint: 'gcloud'
+    entrypoint: 'bq'
     args:
-      - 'alpha'
-      - 'bq'
-      - 'datasets'
-      - 'create'
-      - 'project-poc2025:dataset-cloudbuild' # Substitua pelo ID do projeto e nome do dataset
-      - 'US' # Substitua pela localização desejada
+      - 'mk'
+      - '--dataset'
+      - '--location'
+      - 'US'  # Substitua pela localização desejada
+      - 'project-poc2025:dataset-cloudbuild'  # Substitua pelo ID do projeto e nome do dataset
