@@ -7,4 +7,4 @@ steps:
       - '--dataset'
       - '--location'
       - 'US'  # Substitua pela localização desejada
-      - 'project-poc2025:dataset-cloudbuild'  # Substitua pelo ID do projeto e nome do dataset
+      - 'project-poc2025:datasetcloudbuild'  # Substitua pelo ID do projeto e nome do dataset
