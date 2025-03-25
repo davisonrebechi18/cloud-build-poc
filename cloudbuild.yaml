@@ -4,7 +4,7 @@ steps:
     entrypoint: 'bash'
     args:
       - '-c'
-      - 'bq mk --dataset --location US project-poc2025:dataset-cloudbuild || echo "Dataset already exists"'
+      - 'bq mk --dataset --location US project-poc2025:datasetcloudbuild || echo "Dataset already exists"'
 
   # Cria uma tabela fictícia no BigQuery utilizando uma query SQL
   - name: 'google/cloud-sdk:slim'
@@ -13,5 +13,5 @@ steps:
       - 'query'
       - '--nouse_legacy_sql'
       - >
-        CREATE OR REPLACE TABLE `project-poc2025.dataset-cloudbuild.dummy_table` AS
+        CREATE OR REPLACE TABLE `project-poc2025.datasetcloudbuild.dummy_table` AS
         SELECT 1 AS id, "Alice" AS name, CURRENT_TIMESTAMP() AS created_at
