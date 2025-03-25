@@ -8,3 +8,13 @@ steps:
       - '--location'
       - 'US'  # Substitua pela localização desejada
       - 'project-poc2025:datasetcloudbuild'  # Substitua pelo ID do projeto e nome do dataset
+
+  # Cria uma tabela no BigQuery utilizando uma query SQL
+  - name: 'google/cloud-sdk:slim'
+    entrypoint: 'bq'
+    args:
+      - 'query'
+      - '--nouse_legacy_sql'
+      - >
+        CREATE OR REPLACE TABLE `project-poc2025.dataset-cloudbuild.dummy_table` AS
+        SELECT 1 AS id, "Alice" AS name, CURRENT_TIMESTAMP() AS created_at      
