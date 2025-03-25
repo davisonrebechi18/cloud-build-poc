@@ -1,0 +1,19 @@
+steps:
+  # Passo 1: Cria um cluster no Dataproc
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - >
+        gcloud dataproc clusters create my-cluster --region=us-central1 --zone=us-central1-a --master-machine-type n1-standard-1 --worker-machine-type n1-standard-1 --num-workers 2
+
+  # Passo 2: Submete um job PySpark para o cluster criado
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - >
+        gcloud dataproc jobs submit pyspark --cluster=my-cluster --region=us-central1 -- my_script.py
+
+options:
+  logging: CLOUD_LOGGING_ONLY
