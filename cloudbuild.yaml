@@ -4,7 +4,7 @@ steps:
     entrypoint: 'gcloud'
     args: ['components', 'install', 'alpha', '--quiet']
   # Cria um dataset no BigQuery
-  - name: 'google/cloud-sdk:latest'
+  - name: 'google/cloud-sdk:slim'
     entrypoint: 'gcloud'
     args:
       - 'alpha'
