@@ -1,16 +1,12 @@
 steps:
-  # Cria um dataset no BigQuery usando o comando bq mk
+  # Cria o dataset no BigQuery (ignora erro se já existir)
   - name: 'google/cloud-sdk:slim'
-    entrypoint: 'bq'
+    entrypoint: 'bash'
     args:
-      - 'mk'
-      - '--dataset'
-      - '--location'
-      - 'US'  # Substitua pela localização desejada
-      - 'project-poc2025:datasetcloudbuild'  # Substitua pelo ID do projeto e nome do dataset
-    ignoreExitStatus: true
+      - '-c'
+      - 'bq mk --dataset --location US project-poc2025:dataset-cloudbuild || echo "Dataset already exists"'
 
-  # Cria uma tabela no BigQuery utilizando uma query SQL
+  # Cria uma tabela fictícia no BigQuery utilizando uma query SQL
   - name: 'google/cloud-sdk:slim'
     entrypoint: 'bq'
     args:
