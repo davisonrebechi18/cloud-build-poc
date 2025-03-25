@@ -1,20 +1,46 @@
 steps:
-  # Cria o dataset no BigQuery (ignora erro se já existir)
+  # Passo 1: Cria o dataset, se não existir
   - name: 'google/cloud-sdk:slim'
     entrypoint: 'bash'
     args:
       - '-c'
-      - 'bq mk --dataset --location US project-poc2025:datasetcloudbuild || echo "Dataset already exists"'
+      - |
+        echo "Criando dataset (se não existir)..."
+        bq mk --dataset --location US project-poc2025:dataset_test || echo "Dataset já existe"
 
-  # Cria uma tabela fictícia no BigQuery utilizando uma query SQL
+  # Passo 2: Cria a tabela de teste com dados fictícios, se não existir
   - name: 'google/cloud-sdk:slim'
-    entrypoint: 'bq'
+    entrypoint: 'bash'
     args:
-      - 'query'
-      - '--nouse_legacy_sql'
-      - >
-        CREATE TABLE IF NOT EXISTS `project-poc2025.datasetcloudbuild.dummy_table` AS
-        SELECT 1 AS id, "Alice" AS name, CURRENT_TIMESTAMP() AS created_at
+      - '-c'
+      - |
+        echo "Criando tabela de teste (se não existir) e inserindo dados..."
+        bq query --nouse_legacy_sql "CREATE TABLE IF NOT EXISTS \`project-poc2025.dataset_test.test_table\` AS SELECT 1 AS id, 'Test' AS description"
+
+  # Passo 3: Executa testes automatizados no BigQuery
+  - name: 'google/cloud-sdk:slim'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        echo "Executando testes automatizados no BigQuery..."
+        # Teste 1: Verifica se a tabela possui pelo menos um registro
+        registros=$(bq query --nouse_legacy_sql --format=csv "SELECT COUNT(*) FROM \`project-poc2025.dataset_test.test_table\`" | tail -n1)
+        if [ "$registros" -lt 1 ]; then
+          echo "Falha no teste: a tabela não possui registros."
+          exit 1
+        else
+          echo "Teste 1 aprovado: a tabela possui $registros registro(s)."
+        fi
+
+        # Teste 2: Verifica se existe um registro com id = 1
+        registro=$(bq query --nouse_legacy_sql --format=csv "SELECT id FROM \`project-poc2025.dataset_test.test_table\` WHERE id = 1" | tail -n1)
+        if [ "$registro" != "1" ]; then
+          echo "Falha no teste: registro com id=1 não encontrado."
+          exit 1
+        else
+          echo "Teste 2 aprovado: registro com id=1 encontrado."
+        fi
 
 options:
   logging: CLOUD_LOGGING_ONLY
