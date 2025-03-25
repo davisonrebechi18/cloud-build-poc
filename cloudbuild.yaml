@@ -10,4 +10,4 @@ steps:
       - '--trigger-http' # Tipo de gatilho
       - '--allow-unauthenticated' # Remova essa flag em produção, caso precise de autenticação.
       - '--region=us-central1' # Região de implantação
-      - '--source=./minha_funcao' # Caminho para o código da função
+      - '--source=scripts/minha_funcao' # Caminho para o código da função
