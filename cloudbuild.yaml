@@ -9,5 +9,6 @@ steps:
       - '--runtime=python39' # Ou outra runtime de sua preferencia
       - '--trigger-http' # Tipo de gatilho
       - '--allow-unauthenticated' # Remova essa flag em produção, caso precise de autenticação.
+      - '--timeout=120s'
       - '--region=us-central1' # Região de implantação
       - '--source=scripts/minha_funcao' # Caminho para o código da função
