@@ -1,0 +1,13 @@
+steps:
+  # Implantar Cloud Function
+  - name: 'google/cloud-sdk:latest'
+    entrypoint: 'gcloud'
+    args:
+      - 'functions'
+      - 'deploy'
+      - 'minha_funcao'
+      - '--runtime=python312'
+      - '--trigger-http'
+      - '--allow-unauthenticated'
+      - '--region=us-central1'
+      - '--source=scripts/minha_funcao'
