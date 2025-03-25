@@ -3,7 +3,7 @@ steps:
   - name: 'google/cloud-sdk:latest'
     entrypoint: 'gcloud'
     args:
-      - 'bq'
+      - 'gcloud alpha bq'
       - 'mk'
       - '--location=US' # Substitua pela localização desejada
       - 'project-poc2025:dataset-cloudbuild' # Substitua pelo ID do projeto e nome do dataset
