@@ -1,13 +1,13 @@
 steps:
-  # Implantar Cloud Function
+  # Deploy Cloud Function
   - name: 'google/cloud-sdk:latest'
     entrypoint: 'gcloud'
     args:
       - 'functions'
       - 'deploy'
-      - 'minha_funcao'
-      - '--runtime=python312'
-      - '--trigger-http'
-      - '--allow-unauthenticated'
-      - '--region=us-central1'
-      - '--source=scripts/minha_funcao'
+      - 'minha_funcao' # Nome da Cloud Function
+      - '--runtime=python39' # Ou outra runtime de sua preferencia
+      - '--trigger-http' # Tipo de gatilho
+      - '--allow-authenticated' # Remova essa flag em produção, caso precise de autenticação.
+      - '--region=us-central1' # Região de implantação
+      - '--source=./minha_funcao' # Caminho para o código da função
