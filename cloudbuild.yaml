@@ -2,8 +2,13 @@ steps:
   # Cria um dataset no BigQuery
   - name: 'google/cloud-sdk:latest'
     entrypoint: 'gcloud'
+    args: ['components', 'install', 'alpha', '--quiet']
+  # Cria um dataset no BigQuery
+  - name: 'google/cloud-sdk:latest'
+    entrypoint: 'gcloud'
     args:
-      - 'gcloud alpha bq'
+      - 'alpha'
+      - 'bq'
       - 'mk'
       - '--location=US' # Substitua pela localização desejada
       - 'project-poc2025:dataset-cloudbuild' # Substitua pelo ID do projeto e nome do dataset
